@@ -27,9 +27,9 @@ import java.awt.event.ActionListener;
 public class UISolovayStrassen {
 
 	private JFrame frmTestSolovaystrassen;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField textField_numeroTest;
+	private JTextField textField_numeroPassi;
+	private JTextField textField_risultatoTestuale;
 
 	/**
 	 * Launch the application.
@@ -68,19 +68,19 @@ public class UISolovayStrassen {
 		lblNumeroDaTestare.setBounds(10, 14, 90, 14);
 		frmTestSolovaystrassen.getContentPane().add(lblNumeroDaTestare);
 		
-		textField = new JTextField();
-		textField.setBounds(103, 11, 86, 20);
-		frmTestSolovaystrassen.getContentPane().add(textField);
-		textField.setColumns(10);
+		textField_numeroTest = new JTextField();
+		textField_numeroTest.setBounds(103, 11, 86, 20);
+		frmTestSolovaystrassen.getContentPane().add(textField_numeroTest);
+		textField_numeroTest.setColumns(10);
 		
 		JLabel lblNumeroDiPassi = new JLabel("Numero passi");
 		lblNumeroDiPassi.setBounds(10, 43, 86, 14);
 		frmTestSolovaystrassen.getContentPane().add(lblNumeroDiPassi);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(103, 39, 86, 20);
-		frmTestSolovaystrassen.getContentPane().add(textField_1);
+		textField_numeroPassi = new JTextField();
+		textField_numeroPassi.setColumns(10);
+		textField_numeroPassi.setBounds(103, 39, 86, 20);
+		frmTestSolovaystrassen.getContentPane().add(textField_numeroPassi);
 		
 		JButton btnEseguiTest = new JButton("Esegui");
 		btnEseguiTest.setBounds(49, 68, 89, 23);
@@ -91,10 +91,10 @@ public class UISolovayStrassen {
 			}
 		});
 		
-		textField_2 = new JTextField();
-		textField_2.setEditable(false);
-		textField_2.setBounds(204, 11, 346, 334);
-		frmTestSolovaystrassen.getContentPane().add(textField_2);
-		textField_2.setColumns(10);
+		textField_risultatoTestuale = new JTextField();
+		textField_risultatoTestuale.setEditable(false);
+		textField_risultatoTestuale.setBounds(204, 11, 346, 334);
+		frmTestSolovaystrassen.getContentPane().add(textField_risultatoTestuale);
+		textField_risultatoTestuale.setColumns(10);
 	}
 }
