@@ -16,6 +16,8 @@ public class SolovayStrassen {
 	private int numeroDiPassi;
 	private boolean primo;
 	
+	private String risultato;
+	
 	public SolovayStrassen(int nPassi){
 		/*maggiore è il numero di passi, maggiori
 		 * maggiori saranno le possibilità che il numero
@@ -30,6 +32,8 @@ public class SolovayStrassen {
 		this.numeriTestati = new ArrayList<BigInteger>();
 		this.numeriTestati.add(BigInteger.ZERO);
 		this.primo = true;
+		
+		this.risultato="";
 		
 		//TODO: impostare il numero di test dall'interfaccia
 	}
@@ -71,27 +75,40 @@ public class SolovayStrassen {
 			b = BigInteger.valueOf(ran.nextInt(this.numeroTest.intValue()-1));
 		}
 		this.numeriTestati.add(b);
+		this.risultato.concat("Nuovo test con b uguale a " + b.toString() + "/n");
 		
 		BigInteger mcd = this.aritm.MCD(this.numeroTest, b);
-		
+		this.risultato.concat("Il MCD tra " + this.numeroTest.toString() + " e " +b.toString()+ "è" );
 		/*se il MCD risulta essere maggiore di 1...*/
 		if(mcd.compareTo(BigInteger.ONE)==1){
 			/*il numero non è primo*/
+			this.risultato.concat(" maggiore di 1. /n");
+			this.risultato.concat("Il numero scelto non è primo./n");
 			return false;
 		}
 		/*altrimenti, risultando essere uguale ad 1...*/
 		else{
+			this.risultato.concat(" uguale ad 1./n");
 			/*calcolo il simbolo di Legendre di (b/n) e l'esponente di b uguale a (n-1)/2*/
+			this.risultato.concat("Controllo quindi che b^((n-1)/2) sia congruo al simbolo di Legendre (b n) in modulo n. /n");
 			BigInteger simboloDiLegendre = new BigInteger(this.aritm.simboloDiLegendre(b, this.numeroTest).toString());
+			this.risultato.concat("Essendo il simbolo di Legendre pari a " + simboloDiLegendre.toString() + "/n");
 			/*notare che lo shift a destra è uguale a dividere per due*/
 			BigInteger esponenteDiB = (this.numeroTest.subtract(BigInteger.ONE)).shiftRight(1);
+			this.risultato.concat("e l'esponente di b pari a " +esponenteDiB.toString()+ "/n");
 			
 			/*quindi controllo che b^esponenteDiB sia congruo al simboloDiLegendre, mod n*/
-			if(this.aritm.congruo(b.modPow(esponenteDiB, this.numeroTest), this.numeroTest)== simboloDiLegendre){
+			BigInteger congruo = this.aritm.congruo(b.modPow(esponenteDiB, this.numeroTest), this.numeroTest);
+			this.risultato.concat("/n");
+			this.risultato.concat("b^((n-1)/2) mod " + this.numeroTest.toString() + " è congruo a " + congruo.toString() + "./n");
+			if(congruo.equals(simboloDiLegendre)){
 				/*se sono uguali, il numero non è primo*/
+				this.risultato.concat("Che è uguale al simbolo di Legendre./n");
 				return false;
 			}
 			/*se i precedenti test sono falliti, allora, il numero è probabilmente primo*/
+			this.risultato.concat("Che non è uguale al simbolo di Legendre. /n");
+			this.risultato.concat("Il numero potrebbe essere primo. /n");
 			return true;
 		}
 	}
@@ -120,6 +137,10 @@ public class SolovayStrassen {
 	
 	public boolean getPrimalita(){
 		return this.primo;
+	}
+	
+	public String getRisultatoTestuale(){
+		return this.risultato;
 	}
 	
 	
