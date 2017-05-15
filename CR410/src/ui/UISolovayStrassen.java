@@ -4,32 +4,28 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.awt.BorderLayout;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import controllo.TextValidatore;
+import primalita.SolovayStrassen;
+
 import javax.swing.JButton;
-import java.awt.Component;
-import javax.swing.DropMode;
-import javax.swing.SwingConstants;
-import javax.swing.JDesktopPane;
-import java.awt.CardLayout;
-import java.awt.FlowLayout;
-import javax.swing.BoxLayout;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.JLayeredPane;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigInteger;
+import javax.swing.JTextArea;
+import java.awt.Color;
+import java.awt.SystemColor;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 
 public class UISolovayStrassen {
 
 	private JFrame frmTestSolovaystrassen;
 	private JTextField textField_numeroTest;
 	private JTextField textField_numeroPassi;
-	private JTextField textField_risultatoTestuale;
+	private JTextArea textField_risultatoTestuale;
+	private JScrollPane scroll;
 
 	/**
 	 * Launch the application.
@@ -60,7 +56,7 @@ public class UISolovayStrassen {
 	private void initialize() {
 		frmTestSolovaystrassen = new JFrame();
 		frmTestSolovaystrassen.setTitle("test Solovay-Strassen");
-		frmTestSolovaystrassen.setBounds(100, 100, 576, 395);
+		frmTestSolovaystrassen.setBounds(100, 100, 649, 395);
 		frmTestSolovaystrassen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmTestSolovaystrassen.getContentPane().setLayout(null);
 		
@@ -85,16 +81,32 @@ public class UISolovayStrassen {
 		JButton btnEseguiTest = new JButton("Esegui");
 		btnEseguiTest.setBounds(49, 68, 89, 23);
 		frmTestSolovaystrassen.getContentPane().add(btnEseguiTest);
+		
+		textField_risultatoTestuale = new JTextArea();
+		textField_risultatoTestuale.setEditable(false);
+		textField_risultatoTestuale.setBounds(199, 9, 351, 336);
+		
+		frmTestSolovaystrassen.getContentPane().add(textField_risultatoTestuale);
+		
 		btnEseguiTest.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				
+				TextValidatore validator = new TextValidatore(textField_numeroTest.getText(), textField_numeroPassi.getText());
+				if(validator.validate()){
+					SolovayStrassen test = new SolovayStrassen(Integer.valueOf(textField_numeroPassi.getText()));
+					test.setNumeroTest(new BigInteger(textField_numeroTest.getText()));
+					test.makeTest();
+					
+					textField_risultatoTestuale.setText(test.getRisultatoTestuale());
+				}
+				else{
+					
+					textField_risultatoTestuale.setText("Numeri non accettabili.");
+				}
 			}
 		});
 		
-		textField_risultatoTestuale = new JTextField();
-		textField_risultatoTestuale.setEditable(false);
-		textField_risultatoTestuale.setBounds(204, 11, 346, 334);
-		frmTestSolovaystrassen.getContentPane().add(textField_risultatoTestuale);
-		textField_risultatoTestuale.setColumns(10);
+		scroll = new JScrollPane(textField_risultatoTestuale);
+		frmTestSolovaystrassen.getContentPane().add(scroll);
+		scroll.setBounds(199, 9, 424, 336);
 	}
 }
