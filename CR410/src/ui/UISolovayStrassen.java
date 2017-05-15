@@ -14,9 +14,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigInteger;
 import javax.swing.JTextArea;
-import java.awt.Color;
-import java.awt.SystemColor;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
 public class UISolovayStrassen {
