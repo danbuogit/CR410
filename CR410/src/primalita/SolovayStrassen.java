@@ -94,7 +94,7 @@ public class SolovayStrassen {
 		else{
 			this.risultato = this.risultato.concat(" uguale ad 1.\n");
 			/*calcolo il simbolo di Legendre di (b/n) e l'esponente di b uguale a (n-1)/2*/
-			this.risultato = this.risultato.concat("Controllo quindi che b^((n-1)/2) sia congruo al simbolo di Legendre (b n) in modulo n.\n");
+			this.risultato = this.risultato.concat("Controllo quindi che b^((n-1)/2) sia congruo \nal simbolo di Legendre (b n) in modulo n.\n");
 			BigInteger simboloDiLegendre = new BigInteger(this.aritm.simboloDiLegendre(b, this.numeroTest).toString());
 			this.risultato = this.risultato.concat("Essendo il simbolo di Legendre pari a " + simboloDiLegendre.toString() + "\n");
 			/*notare che lo shift a destra è uguale a dividere per due*/
@@ -104,13 +104,14 @@ public class SolovayStrassen {
 			/*quindi controllo che b^esponenteDiB sia congruo al simboloDiLegendre, mod n*/
 			BigInteger congruo = this.aritm.congruo(b.modPow(esponenteDiB, this.numeroTest), this.numeroTest);
 			this.risultato = this.risultato.concat("b^((n-1)/2) mod " + this.numeroTest.toString() + " è congruo a " + congruo.toString() + ".\n");
-			if(congruo.equals(simboloDiLegendre)){
-				/*se sono uguali, il numero non è primo*/
-				this.risultato = this.risultato.concat("Che è uguale al simbolo di Legendre.\n");
+			if(!(congruo.equals(simboloDiLegendre) || congruo.compareTo(this.numeroTest.subtract(BigInteger.ONE))==0)){
+				/*se non sono uguali, il numero non è primo*/
+				this.risultato = this.risultato.concat("Che non è uguale al simbolo di Legendre.\n");
+				this.risultato = this.risultato.concat("Il numero non è primo.\n");
 				return false;
 			}
 			/*se i precedenti test sono falliti, allora, il numero è probabilmente primo*/
-			this.risultato = this.risultato.concat("Che non è uguale al simbolo di Legendre. \n");
+			this.risultato = this.risultato.concat("Che è uguale al simbolo di Legendre.\n");
 			this.risultato = this.risultato.concat("Il numero potrebbe essere primo. \n");
 			this.risultato = this.risultato.concat("\n");
 			return true;
