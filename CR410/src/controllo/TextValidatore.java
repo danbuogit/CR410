@@ -35,4 +35,10 @@ public class TextValidatore {
 		else
 			return false;
 	}
+
+	public boolean controlEmpty() {
+		if(this.num1.equals("") || this.num2.equals(""))
+			return true;
+		return false;
+	}
 }

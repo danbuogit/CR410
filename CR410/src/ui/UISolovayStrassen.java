@@ -99,7 +99,10 @@ public class UISolovayStrassen {
 					textField_risultatoTestuale.setText(test.getRisultatoTestuale());
 				}
 				else if(!canGoOn){
-					if(!validator.validateLimits()){
+					if(validator.controlEmpty()){
+						textField_risultatoTestuale.setText("Numeri mancanti.");
+					}
+					else if(!validator.validateLimits()){
 						textField_risultatoTestuale.setText("Il numero di passi non può essere maggior del numero da testare.");
 					}
 					else{
