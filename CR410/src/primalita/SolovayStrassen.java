@@ -79,27 +79,26 @@ public class SolovayStrassen {
 			b = BigInteger.valueOf(ran.nextInt(this.numeroTest.intValue()));
 		}
 		this.numeriTestati.add(b);
-		this.risultato = this.risultato.concat("Nuovo test con b uguale a " + b.toString() + "\n");
+		this.risultato = this.risultato.concat("Nuovo test con b = " + b.toString() + ".\n");
 		
 		BigInteger mcd = this.aritm.MCD(this.numeroTest, b);
-		this.risultato = this.risultato.concat("Il MCD tra " + this.numeroTest.toString() + " e " +b.toString()+ " è" );
+		this.risultato = this.risultato.concat("Il MCD(" + this.numeroTest.toString() + " , " +b.toString()+ ") " );
 		/*se il MCD risulta essere maggiore di 1...*/
 		if(mcd.compareTo(BigInteger.ONE)==1){
 			/*il numero non è primo*/
-			this.risultato = this.risultato.concat(" maggiore di 1. \n");
+			this.risultato = this.risultato.concat(" > 1. \n");
 			this.risultato = this.risultato.concat("Il numero scelto non è primo.\n");
 			return false;
 		}
 		/*altrimenti, risultando essere uguale ad 1...*/
 		else{
-			this.risultato = this.risultato.concat(" uguale ad 1.\n");
+			this.risultato = this.risultato.concat(" = 1.\n");
 			/*calcolo il simbolo di Legendre di (b/n) e l'esponente di b uguale a (n-1)/2*/
 			this.risultato = this.risultato.concat("Controllo quindi che b^((n-1)/2) sia congruo \nal simbolo di Legendre (b n) in modulo n.\n");
 			BigInteger simboloDiLegendre = new BigInteger(this.aritm.simboloDiLegendre(b, this.numeroTest).toString());
-			this.risultato = this.risultato.concat("Essendo il simbolo di Legendre pari a " + simboloDiLegendre.toString() + "\n");
+			this.risultato = this.risultato.concat("Il simbolo di Legendre = " + simboloDiLegendre.toString() + ";\n");
 			/*notare che lo shift a destra è uguale a dividere per due*/
 			BigInteger esponenteDiB = (this.numeroTest.subtract(BigInteger.ONE)).shiftRight(1);
-			this.risultato = this.risultato.concat("e l'esponente di b pari a " +esponenteDiB.toString()+ ".\n");
 			
 			/*quindi controllo che b^esponenteDiB sia congruo al simboloDiLegendre, mod n*/
 			BigInteger congruo = this.aritm.congruo(b.modPow(esponenteDiB, this.numeroTest), this.numeroTest);

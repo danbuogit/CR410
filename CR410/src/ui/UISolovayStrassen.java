@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.math.BigInteger;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
+import java.awt.Toolkit;
 
 public class UISolovayStrassen {
 
@@ -52,6 +53,7 @@ public class UISolovayStrassen {
 	 */
 	private void initialize() {
 		frmTestSolovaystrassen = new JFrame();
+		frmTestSolovaystrassen.setIconImage(Toolkit.getDefaultToolkit().getImage(UISolovayStrassen.class.getResource("/ui/icona.png")));
 		frmTestSolovaystrassen.setTitle("test Solovay-Strassen");
 		frmTestSolovaystrassen.setBounds(100, 100, 649, 395);
 		frmTestSolovaystrassen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -88,16 +90,21 @@ public class UISolovayStrassen {
 		btnEseguiTest.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				TextValidatore validator = new TextValidatore(textField_numeroTest.getText(), textField_numeroPassi.getText());
-				if(validator.validate()){
+				boolean canGoOn = validator.validate();
+				if(canGoOn){
 					SolovayStrassen test = new SolovayStrassen(Integer.valueOf(textField_numeroPassi.getText()));
 					test.setNumeroTest(new BigInteger(textField_numeroTest.getText()));
 					test.makeTest();
 					
 					textField_risultatoTestuale.setText(test.getRisultatoTestuale());
 				}
-				else{
-					
-					textField_risultatoTestuale.setText("Numeri non accettabili.");
+				else if(!canGoOn){
+					if(!validator.validateLimits()){
+						textField_risultatoTestuale.setText("Il numero di passi non può essere maggior del numero da testare.");
+					}
+					else{
+						textField_risultatoTestuale.setText("Numeri non accettabili.");
+					}
 				}
 			}
 		});
