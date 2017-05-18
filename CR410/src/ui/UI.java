@@ -1,22 +1,15 @@
 package ui;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.LayoutStyle;
-
-import java.awt.BorderLayout;
 import java.awt.Font;
 import javax.swing.SwingConstants;
-
 import controllo.TextValidatore;
 import primalita.SolovayStrassen;
-
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
 import java.awt.SystemColor;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
@@ -26,9 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import java.awt.CardLayout;
-import java.awt.Window.Type;
-
-public class UIMainMenu {
+public class UI {
 
 	private JFrame frmCr;
 
@@ -39,7 +30,7 @@ public class UIMainMenu {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UIMainMenu window = new UIMainMenu();
+					UI window = new UI();
 					window.frmCr.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,7 +42,7 @@ public class UIMainMenu {
 	/**
 	 * Create the application.
 	 */
-	public UIMainMenu() {
+	public UI() {
 		initialize();
 	}
 
@@ -60,15 +51,20 @@ public class UIMainMenu {
 	 */
 	private void initialize() {
 		frmCr = new JFrame();
-		frmCr.setIconImage(Toolkit.getDefaultToolkit().getImage(UIMainMenu.class.getResource("/ui/icona.png")));
+		frmCr.setIconImage(Toolkit.getDefaultToolkit().getImage(UI.class.getResource("/ui/icona.png")));
 		frmCr.setTitle("CR410");
 		frmCr.setBounds(100, 100, 648, 396);
 		frmCr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmCr.getContentPane().setLayout(new CardLayout(0, 0));
 		
+		//inizializzazione pannelli
+		JPanel SolovayStrassen = new JPanel();
 		JPanel MainMenuPanel = new JPanel();
+		
+		//inizializzazione pannello del menù principale
 		frmCr.getContentPane().add(MainMenuPanel, "name_670921225034624");
 		MainMenuPanel.setLayout(null);
+
 		
 		JLabel lblTestEMetodi = new JLabel("Test e metodi per la crittografia a chiave pubblica");
 		lblTestEMetodi.setBounds(10, 0, 612, 24);
@@ -106,6 +102,10 @@ public class UIMainMenu {
 		JButton btnSolovaystrassen = new JButton("Solovay-Strassen");
 		btnSolovaystrassen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				MainMenuPanel.setEnabled(false);
+				MainMenuPanel.setVisible(false);
+				SolovayStrassen.setEnabled(true);
+				SolovayStrassen.setVisible(true);
 			}
 		});
 		btnSolovaystrassen.setBounds(318, 112, 139, 23);
@@ -124,7 +124,7 @@ public class UIMainMenu {
 		metodopmenouno.setBounds(318, 175, 139, 23);
 		MainMenuPanel.add(metodopmenouno);
 		
-		JPanel SolovayStrassen = new JPanel();
+		//pannello per test di solovay-strassen
 		frmCr.getContentPane().add(SolovayStrassen, "name_670921231410741");
 		SolovayStrassen.setLayout(null);
 		metodopmenouno.addActionListener(new ActionListener() {
@@ -202,5 +202,14 @@ public class UIMainMenu {
 		btnTornaAlMen.setFont(new Font("Lucida Bright", Font.PLAIN, 11));
 		btnTornaAlMen.setBounds(37, 311, 115, 23);
 		SolovayStrassen.add(btnTornaAlMen);
+		btnTornaAlMen.addActionListener(new ActionListener() {		
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				SolovayStrassen.setVisible(false);
+				SolovayStrassen.setEnabled(false);
+				MainMenuPanel.setVisible(true);
+				MainMenuPanel.setEnabled(true);	
+			}
+		});
 	}
 }
