@@ -98,7 +98,7 @@ public class UISolovayStrassen {
 					
 					textField_risultatoTestuale.setText(test.getRisultatoTestuale());
 				}
-				else if(!canGoOn){
+				else{
 					if(validator.controlEmpty()){
 						textField_risultatoTestuale.setText("Numeri mancanti.");
 					}
