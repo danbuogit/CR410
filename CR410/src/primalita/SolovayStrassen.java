@@ -60,9 +60,14 @@ public class SolovayStrassen {
 		
 		/*se risulta ancora primo, calcolo la probabilita che non lo sia*/
 		if(primo){
-			BigDecimal probabilita = new BigDecimal(1/Math.pow(2,this.numeroDiPassi));
 			this.risultato = this.risultato.concat("\n");
+			try{
+			BigDecimal probabilita = new BigDecimal((1/Math.pow(2,this.numeroDiPassi)));
 			this.risultato = this.risultato.concat("La probabilità che il numero non sia primo è pari a "+probabilita.toPlainString()+".\n");
+			}
+			catch(Exception e){
+				this.risultato = this.risultato.concat("La probabilità che il numero non sia primo è infinitamente piccola.");
+			}
 		}
 	}
 	
