@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import controllo.TextValidatore;
+import primalita.MillerRabin;
 import primalita.SolovayStrassen;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
@@ -22,6 +23,7 @@ import java.awt.CardLayout;
 public class UI {
 
 	private JFrame frmCr;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -58,7 +60,8 @@ public class UI {
 		frmCr.getContentPane().setLayout(new CardLayout(0, 0));
 		
 		//inizializzazione pannelli
-		JPanel SolovayStrassen = new JPanel();
+		JPanel MillerRabinPanel = new JPanel();
+		JPanel SolovayStrassenPanel = new JPanel();
 		JPanel MainMenuPanel = new JPanel();
 		
 		//inizializzazione pannello del menù principale
@@ -104,8 +107,8 @@ public class UI {
 			public void actionPerformed(ActionEvent e) {
 				MainMenuPanel.setEnabled(false);
 				MainMenuPanel.setVisible(false);
-				SolovayStrassen.setEnabled(true);
-				SolovayStrassen.setVisible(true);
+				SolovayStrassenPanel.setEnabled(true);
+				SolovayStrassenPanel.setVisible(true);
 			}
 		});
 		btnSolovaystrassen.setBounds(318, 112, 139, 23);
@@ -114,19 +117,110 @@ public class UI {
 		JButton btnMillerrabin = new JButton("Miller-Rabin");
 		btnMillerrabin.setBounds(464, 112, 139, 23);
 		MainMenuPanel.add(btnMillerrabin);
+		btnMillerrabin.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				MainMenuPanel.setEnabled(false);
+				MainMenuPanel.setVisible(false);
+				MillerRabinPanel.setEnabled(true);
+				MillerRabinPanel.setVisible(true);
+				
+			}
+		});
 		
 		JLabel lblFattorizzazione = new JLabel("Fattorizzazione:");
 		lblFattorizzazione.setBounds(306, 154, 316, 14);
 		MainMenuPanel.add(lblFattorizzazione);
 		lblFattorizzazione.setFont(new Font("Lucida Bright", Font.PLAIN, 11));
 		
-		JButton metodopmenouno = new JButton("p-1");
+		JButton metodopmenouno = new JButton("Metodo (p-1) ");
 		metodopmenouno.setBounds(318, 175, 139, 23);
 		MainMenuPanel.add(metodopmenouno);
 		
+		JButton btnNewButton = new JButton("Metodo Rho");
+		btnNewButton.setBounds(464, 175, 139, 23);
+		MainMenuPanel.add(btnNewButton);
+		
+		//panello per test di Miller-Rabin
+		frmCr.getContentPane().add(MillerRabinPanel, "name_829089682120844");
+		MillerRabinPanel.setLayout(null);
+		
+		JTextArea textField_risultatoTestualeMR = new JTextArea();
+		textField_risultatoTestualeMR.setBounds(199, 9, 424, 336);
+		MillerRabinPanel.add(textField_risultatoTestualeMR);
+		
+		JScrollPane scrollPaneMR = new JScrollPane(textField_risultatoTestualeMR);
+		scrollPaneMR.setBounds(199, 9, 424, 336);
+		MillerRabinPanel.add(scrollPaneMR);
+		
+		JLabel labelTitleMR = new JLabel("Test di Miller-Rabin");
+		labelTitleMR.setHorizontalAlignment(SwingConstants.CENTER);
+		labelTitleMR.setFont(new Font("Lucida Bright", Font.PLAIN, 11));
+		labelTitleMR.setBounds(10, 15, 179, 14);
+		MillerRabinPanel.add(labelTitleMR);
+		
+		JLabel lblNumeroTestMR = new JLabel("Numero di test");
+		lblNumeroTestMR.setFont(new Font("Lucida Bright", Font.PLAIN, 11));
+		lblNumeroTestMR.setBounds(10, 50, 90, 14);
+		MillerRabinPanel.add(lblNumeroTestMR);
+		
+		textField = new JTextField();
+		textField.setBounds(103, 47, 86, 20);
+		MillerRabinPanel.add(textField);
+		textField.setColumns(10);
+		
+		JButton btnEseguiTestMR = new JButton("Esegui");
+		btnEseguiTestMR.setFont(new Font("Lucida Bright", Font.PLAIN, 11));
+		btnEseguiTestMR.setBounds(49, 75, 89, 23);
+		MillerRabinPanel.add(btnEseguiTestMR);
+		btnEseguiTestMR.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				TextValidatore validator = new TextValidatore(textField.getText());
+				boolean canGoOn = validator.validate();
+				if(canGoOn){
+					MillerRabin test = new MillerRabin();
+					test.nuovoNumeroDiTest(textField.getText());
+					test.makeTest();
+					
+					textField_risultatoTestualeMR.setText(test.getRisultatoTestuale());
+				}
+				else{
+					if(validator.controlEmpty()){
+						textField_risultatoTestualeMR.setText("Numeri mancanti.");
+					}
+					else if(!validator.validateLimits()){
+						textField_risultatoTestualeMR.setText("Numeri non accettabili.\n \n NB: Il numero di passi non può essere maggiore del numero da testare.");
+					}
+					else{
+						textField_risultatoTestualeMR.setText("Numeri non accettabili.");
+					}
+				}
+				
+			}
+		});
+		
+		JButton btnTornaAlMenuMR = new JButton("Torna al men\u00F9");
+		btnTornaAlMenuMR.setFont(new Font("Lucida Bright", Font.PLAIN, 11));
+		btnTornaAlMenuMR.setBounds(34, 311, 122, 23);
+		MillerRabinPanel.add(btnTornaAlMenuMR);
+		btnTornaAlMenuMR.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				MainMenuPanel.setEnabled(true);
+				MainMenuPanel.setVisible(true);
+				MillerRabinPanel.setEnabled(false);
+				MillerRabinPanel.setVisible(false);
+				
+			}
+		});
+		
 		//pannello per test di solovay-strassen
-		frmCr.getContentPane().add(SolovayStrassen, "name_670921231410741");
-		SolovayStrassen.setLayout(null);
+		frmCr.getContentPane().add(SolovayStrassenPanel, "name_670921231410741");
+		SolovayStrassenPanel.setLayout(null);
 		metodopmenouno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -135,33 +229,33 @@ public class UI {
 		JLabel lblNumeroDaTestare = new JLabel("Numero test");
 		lblNumeroDaTestare.setFont(new Font("Lucida Bright", Font.PLAIN, 11));
 		lblNumeroDaTestare.setBounds(10, 50, 90, 14);
-		SolovayStrassen.add(lblNumeroDaTestare);
+		SolovayStrassenPanel.add(lblNumeroDaTestare);
 		
 		JTextField textField_numeroTest = new JTextField();
 		textField_numeroTest.setBounds(103, 47, 86, 20);
-		SolovayStrassen.add(textField_numeroTest);
+		SolovayStrassenPanel.add(textField_numeroTest);
 		textField_numeroTest.setColumns(10);
 		
 		JLabel lblNumeroDiPassi = new JLabel("Numero passi");
 		lblNumeroDiPassi.setFont(new Font("Lucida Bright", Font.PLAIN, 11));
 		lblNumeroDiPassi.setBounds(10, 79, 86, 14);
-		SolovayStrassen.add(lblNumeroDiPassi);
+		SolovayStrassenPanel.add(lblNumeroDiPassi);
 		
 		JTextField textField_numeroPassi = new JTextField();
 		textField_numeroPassi.setColumns(10);
 		textField_numeroPassi.setBounds(103, 75, 86, 20);
-		SolovayStrassen.add(textField_numeroPassi);
+		SolovayStrassenPanel.add(textField_numeroPassi);
 		
 		JButton btnEseguiTest = new JButton("Esegui");
 		btnEseguiTest.setFont(new Font("Lucida Bright", Font.PLAIN, 11));
 		btnEseguiTest.setBounds(49, 104, 89, 23);
-		SolovayStrassen.add(btnEseguiTest);
+		SolovayStrassenPanel.add(btnEseguiTest);
 		
 		JTextArea textField_risultatoTestuale = new JTextArea();
 		textField_risultatoTestuale.setEditable(false);
 		textField_risultatoTestuale.setBounds(199, 9, 351, 336);
 		
-		SolovayStrassen.add(textField_risultatoTestuale);
+		SolovayStrassenPanel.add(textField_risultatoTestuale);
 		
 		btnEseguiTest.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -179,7 +273,7 @@ public class UI {
 						textField_risultatoTestuale.setText("Numeri mancanti.");
 					}
 					else if(!validator.validateLimits()){
-						textField_risultatoTestuale.setText("Il numero di passi non può essere maggior del numero da testare.");
+						textField_risultatoTestuale.setText("Numeri non accettabili.\n \n NB: Il numero di passi non può essere maggiore del numero da testare.");
 					}
 					else{
 						textField_risultatoTestuale.setText("Numeri non accettabili.");
@@ -189,24 +283,24 @@ public class UI {
 		});
 		
 		JScrollPane scroll = new JScrollPane(textField_risultatoTestuale);
-		SolovayStrassen.add(scroll);
+		SolovayStrassenPanel.add(scroll);
 		scroll.setBounds(199, 9, 424, 336);
 		
 		JLabel lblTestDiSolovaystrassen = new JLabel("Test di Solovay-Strassen");
 		lblTestDiSolovaystrassen.setFont(new Font("Lucida Bright", Font.PLAIN, 11));
 		lblTestDiSolovaystrassen.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTestDiSolovaystrassen.setBounds(10, 15, 179, 14);
-		SolovayStrassen.add(lblTestDiSolovaystrassen);
+		SolovayStrassenPanel.add(lblTestDiSolovaystrassen);
 		
 		JButton btnTornaAlMen = new JButton("Torna al men\u00F9");
 		btnTornaAlMen.setFont(new Font("Lucida Bright", Font.PLAIN, 11));
 		btnTornaAlMen.setBounds(37, 311, 115, 23);
-		SolovayStrassen.add(btnTornaAlMen);
+		SolovayStrassenPanel.add(btnTornaAlMen);
 		btnTornaAlMen.addActionListener(new ActionListener() {		
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SolovayStrassen.setVisible(false);
-				SolovayStrassen.setEnabled(false);
+				SolovayStrassenPanel.setVisible(false);
+				SolovayStrassenPanel.setEnabled(false);
 				MainMenuPanel.setVisible(true);
 				MainMenuPanel.setEnabled(true);	
 			}

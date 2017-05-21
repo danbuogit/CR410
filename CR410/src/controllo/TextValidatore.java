@@ -15,6 +15,11 @@ public class TextValidatore {
 		this.num2=numeroPassi;
 	}
 	
+	public TextValidatore(String numeroTest){
+		this.num1=numeroTest;
+		this.num2="1";
+	}
+	
 	public boolean validate(){		
 		try{
 			this.prova = new BigInteger(this.num1);
@@ -29,11 +34,15 @@ public class TextValidatore {
 	}
 	
 	public boolean validateLimits(){
-		
+		try{
 		if(this.prova.compareTo(new BigInteger(this.provaIndice.toString()))>0)
 			return true;
 		else
 			return false;
+		}
+		catch(Exception e){
+			return false;
+		}
 	}
 
 	public boolean controlEmpty() {
