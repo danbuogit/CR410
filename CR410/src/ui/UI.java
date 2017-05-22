@@ -24,6 +24,7 @@ public class UI {
 
 	private JFrame frmCr;
 	private JTextField textField;
+	private JTextField textField_numeroPassiMR;
 
 	/**
 	 * Launch the application.
@@ -172,17 +173,18 @@ public class UI {
 		
 		JButton btnEseguiTestMR = new JButton("Esegui");
 		btnEseguiTestMR.setFont(new Font("Lucida Bright", Font.PLAIN, 11));
-		btnEseguiTestMR.setBounds(49, 75, 89, 23);
+		btnEseguiTestMR.setBounds(49, 104, 89, 23);
 		MillerRabinPanel.add(btnEseguiTestMR);
 		btnEseguiTestMR.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				TextValidatore validator = new TextValidatore(textField.getText());
+				TextValidatore validator = new TextValidatore(textField.getText(), textField_numeroPassiMR.getText());
 				boolean canGoOn = validator.validate();
 				if(canGoOn){
 					MillerRabin test = new MillerRabin();
 					test.nuovoNumeroDiTest(textField.getText());
+					test.setNumeroPassi(Integer.parseInt(textField_numeroPassiMR.getText()));
 					test.makeTest();
 					
 					textField_risultatoTestualeMR.setText(test.getRisultatoTestuale());
@@ -192,7 +194,7 @@ public class UI {
 						textField_risultatoTestualeMR.setText("Numeri mancanti.");
 					}
 					else if(!validator.validateLimits()){
-						textField_risultatoTestualeMR.setText("Numeri non accettabili.\n \n NB: Il numero di passi non può essere maggiore del numero da testare.");
+						textField_risultatoTestualeMR.setText("Numeri non accettabili. \nIl numero di passi eseguibili deve essere strettamente minore del numero da testare.");
 					}
 					else{
 						textField_risultatoTestualeMR.setText("Numeri non accettabili.");
@@ -206,6 +208,16 @@ public class UI {
 		btnTornaAlMenuMR.setFont(new Font("Lucida Bright", Font.PLAIN, 11));
 		btnTornaAlMenuMR.setBounds(34, 311, 122, 23);
 		MillerRabinPanel.add(btnTornaAlMenuMR);
+		
+		JLabel lblNumeroDiPassi_MR = new JLabel("Numero di passi");
+		lblNumeroDiPassi_MR.setFont(new Font("Lucida Bright", Font.PLAIN, 11));
+		lblNumeroDiPassi_MR.setBounds(10, 79, 90, 14);
+		MillerRabinPanel.add(lblNumeroDiPassi_MR);
+		
+		textField_numeroPassiMR = new JTextField();
+		textField_numeroPassiMR.setBounds(103, 76, 86, 20);
+		MillerRabinPanel.add(textField_numeroPassiMR);
+		textField_numeroPassiMR.setColumns(10);
 		btnTornaAlMenuMR.addActionListener(new ActionListener() {
 			
 			@Override
