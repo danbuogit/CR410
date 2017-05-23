@@ -38,7 +38,7 @@ public class MillerRabin{
 			this.risultato = this.risultato.concat("Il numero di passi da eseguire è stato ridotto.\n\n");
 		}
 		
-		Integer bMax = (int) (Math.sqrt(Double.valueOf(this.numberTest.toString())))-2;
+		Integer bMax = (int) (Math.sqrt(Double.valueOf(this.numberTest.toString())));
 		BigInteger t = this.numeroScomposto[1];
 		BigInteger s = this.numeroScomposto[0];
 		BigInteger menoUno = this.numberTest.add(BigInteger.ONE.negate());
@@ -59,7 +59,7 @@ public class MillerRabin{
 			}
 			if(primo){
 				BigDecimal probabilità = new BigDecimal(1/Math.pow(4, i));
-				this.risultato = this.risultato.concat("La probabilità che il numero non sia primo ma passi comunque il test è pari a " + probabilità.toString() + ".\n");
+				this.risultato = this.risultato.concat("La probabilità che il numero non sia primo ma passi comunque il test è pari a " + probabilità.toPlainString() + ".\n");
 			}
 		}
 		
@@ -160,7 +160,8 @@ public class MillerRabin{
 		boolean cambiato = false;
 		
 		if(this.numberTest!=null){
-			Integer max = ((int) (Math.sqrt(Double.valueOf(this.numberTest.toString()))))-2;
+			//perché -3? perché sono possibili bMax numeri di test, di cui escludiamo bMax, 0 ed 1. (bMax viene escluso da Random)
+			Integer max = ((int) (Math.sqrt(Double.valueOf(this.numberTest.toString()))))-3;
 			if(this.numeroPassi>max){
 				this.numeroPassi = max;
 				cambiato = true;
