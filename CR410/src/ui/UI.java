@@ -70,7 +70,7 @@ public class UI {
 		MainMenuPanel.setLayout(null);
 
 		
-		JLabel lblTestEMetodi = new JLabel("Test e metodi per la crittografia a chiave pubblica");
+		JLabel lblTestEMetodi = new JLabel("Test di primalit\u00E0 per la crittografia a chiave pubblica");
 		lblTestEMetodi.setBounds(10, 0, 612, 24);
 		MainMenuPanel.add(lblTestEMetodi);
 		lblTestEMetodi.setHorizontalAlignment(SwingConstants.CENTER);
@@ -82,7 +82,7 @@ public class UI {
 		txtrQuestaApplicazione.setWrapStyleWord(true);
 		txtrQuestaApplicazione.setFont(new Font("Lucida Bright", Font.PLAIN, 13));
 		txtrQuestaApplicazione.setLineWrap(true);
-		txtrQuestaApplicazione.setText("Questa applicazione \u00E8 stata scritta e costruita al fine di compiere nella pratica metodi di fattorizzazione e test di primalit\u00E0 su numeri interi positivi. \r\nTuttavia, tenendo conto delle limitazioni hardware, alcuni di questi sopracitati, in casi particolari, possono impiegare diversi secondi prima di compiere il loro lavoro. ");
+		txtrQuestaApplicazione.setText("Questa applicazione \u00E8 stata scritta e costruita al fine di compiere nella pratica test di primalit\u00E0 su numeri interi positivi. \r\nTuttavia, tenendo conto delle limitazioni hardware, alcuni di questi, in casi particolari, possono impiegare diversi secondi prima di compiere il loro lavoro. ");
 		txtrQuestaApplicazione.setBackground(SystemColor.menu);
 		txtrQuestaApplicazione.setEditable(false);
 		
@@ -93,13 +93,13 @@ public class UI {
 		lblInformazioniDiSistema.setFont(new Font("Lucida Bright", Font.PLAIN, 17));
 		
 		JLabel lblOperazioniDisponibili = new JLabel("Operazioni disponibili");
-		lblOperazioniDisponibili.setBounds(271, 57, 351, 27);
+		lblOperazioniDisponibili.setBounds(271, 103, 351, 27);
 		MainMenuPanel.add(lblOperazioniDisponibili);
 		lblOperazioniDisponibili.setHorizontalAlignment(SwingConstants.CENTER);
 		lblOperazioniDisponibili.setFont(new Font("Lucida Bright", Font.PLAIN, 17));
 		
 		JLabel lblTestDiPrimalit = new JLabel("Test di primalit\u00E0:");
-		lblTestDiPrimalit.setBounds(306, 91, 316, 14);
+		lblTestDiPrimalit.setBounds(345, 141, 277, 14);
 		MainMenuPanel.add(lblTestDiPrimalit);
 		lblTestDiPrimalit.setFont(new Font("Lucida Bright", Font.PLAIN, 11));
 		
@@ -112,11 +112,11 @@ public class UI {
 				SolovayStrassenPanel.setVisible(true);
 			}
 		});
-		btnSolovaystrassen.setBounds(318, 112, 139, 23);
+		btnSolovaystrassen.setBounds(387, 166, 139, 23);
 		MainMenuPanel.add(btnSolovaystrassen);
 		
 		JButton btnMillerrabin = new JButton("Miller-Rabin");
-		btnMillerrabin.setBounds(464, 112, 139, 23);
+		btnMillerrabin.setBounds(387, 200, 139, 23);
 		MainMenuPanel.add(btnMillerrabin);
 		btnMillerrabin.addActionListener(new ActionListener() {
 			
@@ -129,19 +129,6 @@ public class UI {
 				
 			}
 		});
-		
-		JLabel lblFattorizzazione = new JLabel("Fattorizzazione:");
-		lblFattorizzazione.setBounds(306, 154, 316, 14);
-		MainMenuPanel.add(lblFattorizzazione);
-		lblFattorizzazione.setFont(new Font("Lucida Bright", Font.PLAIN, 11));
-		
-		JButton metodopmenouno = new JButton("Metodo (p-1) ");
-		metodopmenouno.setBounds(318, 175, 139, 23);
-		MainMenuPanel.add(metodopmenouno);
-		
-		JButton btnNewButton = new JButton("Metodo Rho");
-		btnNewButton.setBounds(464, 175, 139, 23);
-		MainMenuPanel.add(btnNewButton);
 		
 		//panello per test di Miller-Rabin
 		frmCr.getContentPane().add(MillerRabinPanel, "name_829089682120844");
@@ -233,10 +220,6 @@ public class UI {
 		//pannello per test di solovay-strassen
 		frmCr.getContentPane().add(SolovayStrassenPanel, "name_670921231410741");
 		SolovayStrassenPanel.setLayout(null);
-		metodopmenouno.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		
 		JLabel lblNumeroDaTestare = new JLabel("Numero test");
 		lblNumeroDaTestare.setFont(new Font("Lucida Bright", Font.PLAIN, 11));
