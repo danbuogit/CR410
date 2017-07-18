@@ -35,10 +35,10 @@ public class AritmeticaModulare {
 	 * di b, 0 se b divide a, 1 se a è radice quadratica di b.
 	 */
 	public Integer simboloDiLegendre(BigInteger a, BigInteger b){
-		if(MCD(a,b)!= BigInteger.ONE){
+		if(MCD(a,b).compareTo(BigInteger.ONE)!=0){
 			return 0;
 		}
-		if(a.modPow(b.subtract(BigInteger.ONE).divide(new BigInteger("2")), b)==BigInteger.ONE){
+		if(a.modPow(b.subtract(BigInteger.ONE).divide(new BigInteger("2")), b).compareTo(BigInteger.ONE)==0){
 			return 1;
 		}
 		return -1;
